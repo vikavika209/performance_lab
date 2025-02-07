@@ -10,8 +10,8 @@ public class Task2 {
 //    равно квадратному корню из сумм квадратов разности соответствующих координат точки и центра круга
 
     public static void main(String[] args) {
-        String circleDataFile = args[0];
-        String dotDataFile = args[1];
+        String circleDataFile = "src/main/java/task2/circle.txt";
+        String dotDataFile = "src/main/java/task2/dot.txt";
 
         try{
             Scanner circleScanner = new Scanner(new File(circleDataFile));
@@ -39,7 +39,7 @@ public class Task2 {
             dotScanner.close();
 
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            System.out.println("File not found");
         }
     }
 }

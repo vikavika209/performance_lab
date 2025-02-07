@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class Task4 {
     public static void main(String[] args) {
-        String filePath = args[0];
+        String filePath = "src/main/java/task4/Task4.txt";
 
         try {
             Scanner scanner = new Scanner(new File(filePath));
@@ -22,6 +22,8 @@ public class Task4 {
             }
 
             scanner.close();
+
+            nums.sort(Integer::compareTo);
 
             int mediana = nums.get(nums.size() / 2);
 
@@ -39,7 +41,7 @@ public class Task4 {
             System.out.println(steps);
 
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            System.out.println("File not found");
         }
     }
 }

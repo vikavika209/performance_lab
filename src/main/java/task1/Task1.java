@@ -5,10 +5,10 @@ import java.util.*;
 public class Task1 {
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int m = sc.nextInt();
-        sc.close();
+            Scanner sc = new Scanner(System.in);
+            int n = sc.nextInt();
+            int m = sc.nextInt();
+            sc.close();
 
         List<Integer> list = new LinkedList<>();
         int step = 1;
@@ -28,6 +28,5 @@ public class Task1 {
         }while (step != 1);
 
         System.out.println(Arrays.toString(list.toArray()));
-
     }
 }
