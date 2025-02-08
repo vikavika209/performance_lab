@@ -13,34 +13,42 @@ public class Task3 {
     public static void main(String[] args) {
 
         try {
-            File testFile = new File("src/main/java/task3/test.json");
-            File valueFile = new File("src/main/java/task3/values.json");
-            File resultFile = new File("src/main/java/task3/result.json");
+            String testFilePath = args[0];
+            String valuesFilePath = args[1];
+            String resultFilePath = args[2];
 
-            ObjectMapper mapper = new ObjectMapper();
+            try {
+                File testFile = new File(testFilePath);
+                File valueFile = new File(valuesFilePath);
+                File resultFile = new File(resultFilePath);
 
-            TestsContainer testsContainer = mapper.readValue(testFile, TestsContainer.class);
-            List<Test> tests = testsContainer.getTests();
+                ObjectMapper mapper = new ObjectMapper();
 
-            ValuesContainer valuesContainer = mapper.readValue(valueFile, ValuesContainer.class);
-            List<Value> values = valuesContainer.getValues();
+                TestsContainer testsContainer = mapper.readValue(testFile, TestsContainer.class);
+                List<Test> tests = testsContainer.getTests();
 
-            Map<Integer, String> valueMap = values.stream()
-                    .collect(Collectors.toMap(Value::getId, Value::getValue));
+                ValuesContainer valuesContainer = mapper.readValue(valueFile, ValuesContainer.class);
+                List<Value> values = valuesContainer.getValues();
 
-            for (Test test : tests) {
-                test.updateValues(test, valueMap);
+                Map<Integer, String> valueMap = values.stream()
+                        .collect(Collectors.toMap(Value::getId, Value::getValue));
+
+                for (Test test : tests) {
+                    test.updateValues(test, valueMap);
+                }
+
+                Map<String, Object> resultMap = new HashMap<>();
+                resultMap.put("tests", tests);
+
+                mapper.enable(com.fasterxml.jackson.databind.SerializationFeature.INDENT_OUTPUT);
+                mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+
+                mapper.writeValue(resultFile, resultMap);
+            } catch (IOException e) {
+                System.out.println("File not found");
             }
-
-            Map<String, Object> resultMap = new HashMap<>();
-            resultMap.put("tests", tests);
-
-            mapper.enable(com.fasterxml.jackson.databind.SerializationFeature.INDENT_OUTPUT);
-            mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-
-            mapper.writeValue(resultFile, resultMap);
-        } catch (IOException e) {
-            System.out.println("File not found");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Args not found");
         }
     }
 }

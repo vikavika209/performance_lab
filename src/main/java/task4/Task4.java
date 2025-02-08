@@ -8,40 +8,45 @@ import java.util.Scanner;
 
 public class Task4 {
     public static void main(String[] args) {
-        String filePath = "src/main/java/task4/Task4.txt";
 
         try {
-            Scanner scanner = new Scanner(new File(filePath));
+            String filePath = args[0];
 
-            List<Integer> nums = new ArrayList<>();
+            try {
+                Scanner scanner = new Scanner(new File(filePath));
 
-            int steps = 0;
+                List<Integer> nums = new ArrayList<>();
 
-            while (scanner.hasNext()) {
-                nums.add(scanner.nextInt());
-            }
+                int steps = 0;
 
-            scanner.close();
-
-            nums.sort(Integer::compareTo);
-
-            int mediana = nums.get(nums.size() / 2);
-
-            for (int number : nums) {
-
-                int difference = number - mediana;
-
-                if (difference < 0) {
-                    difference = -difference;
+                while (scanner.hasNext()) {
+                    nums.add(scanner.nextInt());
                 }
 
-                steps += difference;
+                scanner.close();
+
+                nums.sort(Integer::compareTo);
+
+                int mediana = nums.get(nums.size() / 2);
+
+                for (int number : nums) {
+
+                    int difference = number - mediana;
+
+                    if (difference < 0) {
+                        difference = -difference;
+                    }
+
+                    steps += difference;
+                }
+
+                System.out.println(steps);
+
+            } catch (FileNotFoundException e) {
+                System.out.println("File not found");
             }
-
-            System.out.println(steps);
-
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
+        }catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Args not found");
         }
     }
 }

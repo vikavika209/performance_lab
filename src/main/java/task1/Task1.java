@@ -5,28 +5,30 @@ import java.util.*;
 public class Task1 {
     public static void main(String[] args) {
 
-            Scanner sc = new Scanner(System.in);
-            int n = sc.nextInt();
-            int m = sc.nextInt();
-            sc.close();
+        try {
 
-        List<Integer> list = new LinkedList<>();
-        int step = 1;
+            int n = Integer.parseInt(args[0]);
+            int m = Integer.parseInt(args[1]);
 
-        do{
-            list.add(step);
+            List<Integer> list = new LinkedList<>();
+            int step = 1;
 
-            if ((step + (m - 1)) <= n){
-                step += (m - 1);
+            do {
+                list.add(step);
 
-            }else if (((step + (m - 1))) % n == 0){
-                step = n;
-            }
-            else {
-                step = (step + (m - 1)) % n;
-            }
-        }while (step != 1);
+                if ((step + (m - 1)) <= n) {
+                    step += (m - 1);
 
-        System.out.println(Arrays.toString(list.toArray()));
+                } else if (((step + (m - 1))) % n == 0) {
+                    step = n;
+                } else {
+                    step = (step + (m - 1)) % n;
+                }
+            } while (step != 1);
+
+            System.out.println(Arrays.toString(list.toArray()));
+        }catch (NumberFormatException e){
+            System.out.println("Arguments must be integers.");
+        }
     }
 }
